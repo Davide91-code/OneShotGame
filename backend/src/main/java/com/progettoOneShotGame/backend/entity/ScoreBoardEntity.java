@@ -1,0 +1,51 @@
+package com.progettoOneShotGame.backend.entity;
+
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderColumn;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "score_boards")
+public class ScoreBoardEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "score_board_id")
+    @OrderColumn(name = "cell_position")
+    private List<Cell> cells = new LinkedList<>();
+
+    protected ScoreBoardEntity() {
+    }
+
+    public ScoreBoardEntity(List<Cell> cells) {
+        this.cells = new LinkedList<>(cells);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public List<Cell> getCells() {
+        return List.copyOf(cells);
+    }
+
+    public int size() {
+        return cells.size();
+    }
+
+    public Cell getCellAt(int position) {
+        return cells.get(position);
+    }
+}
+
