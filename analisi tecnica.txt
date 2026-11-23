@@ -25,9 +25,17 @@ Classe Player con nome, id, gli HP massimi;
 
 Classe Game con id, composizione del tabellone, sequenza di Progress (sequenza di azioni successe nella partita) e giocatore;
 
+Classe Progress che rappresenta le azioni che il giocatore ha effettuato (lancio del dado e se accettare un'interazione o meno). Deve avere un id (che definisce
+anche l'ordinamento nella sequenza delle varie azioni), un riferimento al Game all'interno del quale l'azione è stata fatta, un attributo che dice che tipo di azione è
+(se il lancio di un dado o se è l'accettazione/rifiuto dell'interazione dell'evento corrente), un campo che ha valore solo se si tratta del lancio di un dado che riporta 
+il numero uscito dal lancio, 
+una serie di campi che hanno valore solo se l'azione riguarda un'interazione:
+uno che riporta se l'interazione è stata accettata o meno.
+un altro che riporta l'esito dell'interazione, (nel caso venisse accettata).
+
 Classe ScoreBoard che rappresenta il terreno di gioco. Deve avere un id, una sequenza di caselle (lista concatenata di dimensione specificata dal frontend);
 
 Classe Cell che deve rappresentare un evento con il quale il giocatore può scegliere di interagire o ignorare. Deve avere l'id, descrizione testuale dell'evento,
 descrizione in caso positivo e descrizione in caso negativo.
 
-Classe Dice che rappresenta il dado che viene lanciato di volta in volta e constiene la logica di generazione casuale del numero.
+Classe Dice che rappresenta il dado che viene lanciato di volta in volta e contiene la logica di generazione casuale del numero.
