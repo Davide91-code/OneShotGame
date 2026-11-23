@@ -1,19 +1,15 @@
 package com.progettoOneShotGame.backend.entity;
 
-
 public class CellEntity {
-   
-
-    private int positiveOutcomeHpChange;
-    private int negativeOutcomeHpChange;
     private Long id;
     private String eventDescription;
     private String positiveOutcomeDescription;
     private String negativeOutcomeDescription;
-    
-  
 
-            public Long getId() {
+    private int positiveOutcomeHpChange;
+    private int negativeOutcomeHpChange;
+
+    public Long getId() {
         return id;
     }
 
@@ -21,84 +17,43 @@ public class CellEntity {
         this.id = id;
     }
 
+    public String getEventDescription() {
+        return eventDescription;
+    }
 
-     public String getEventDescription() {
-    return eventDescription;
-}
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
+    }
 
-public void setEventDescription(String eventDescription) {
-    this.eventDescription = eventDescription;
-}
+    public String getPositiveOutcomeDescription() {
+        return positiveOutcomeDescription;
+    }
 
+    public void setPositiveOutcomeDescription(String positiveOutcomeDescription) {
+        this.positiveOutcomeDescription = positiveOutcomeDescription;
+    }
 
-public String getPositiveOutcomeDescription() {
-    return positiveOutcomeDescription;
-}
+    public String getNegativeOutcomeDescription() {
+        return negativeOutcomeDescription;
+    }
 
-public void setPositiveOutcomeDescription(String positiveOutcomeDescription) {
-    this.positiveOutcomeDescription = positiveOutcomeDescription;
-}
+    public void setNegativeOutcomeDescription(String negativeOutcomeDescription) {
+        this.negativeOutcomeDescription = negativeOutcomeDescription;
+    }
 
-public String getNegativeOutcomeDescription() {
-    return negativeOutcomeDescription;
-}
+    public int getPositiveOutcomeHpChange() {
+        return positiveOutcomeHpChange;
+    }
 
-public void setNegativeOutcomeDescription(String negativeOutcomeDescription) {
-    this.negativeOutcomeDescription = negativeOutcomeDescription;
-}
+    public void setPositiveOutcomeHpChange(int positiveOutcomeHpChange) {
+        this.positiveOutcomeHpChange = positiveOutcomeHpChange;
+    }
 
+    public int getNegativeOutcomeHpChange() {
+        return negativeOutcomeHpChange;
+    }
 
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void setNegativeOutcomeHpChange(int negativeOutcomeHpChange) {
+        this.negativeOutcomeHpChange = negativeOutcomeHpChange;
+    }
 }
