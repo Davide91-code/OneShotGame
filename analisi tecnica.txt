@@ -19,15 +19,15 @@ Obiettivi:
 
 2) Definire interazioni possibili nelle varie tipologie di celle (definire scelta si/no e relative conseguenze).
 
-Code rules:
-
-1) Tutti i nomi di classi, metodi e attributi in inglese;
-2) Utilizzo della camelCase notation;
-3) Le classi che seguono un design pattern si chiameranno *nome*nomePattern* (es. StatoService);
-4) Le classi dovranno essere organizzate in package in base alla loro funzione (i controller nel package "controller", i Service nel package "service" ecc...);
-
 classi da implementare:
 
 Classe Player con nome, id, gli HP massimi;
 
-Classe Game con id, composizione del tabellone (sequenza di celle), Progress
+Classe Game con id, composizione del tabellone, sequenza di Progress (sequenza di azioni successe nella partita) e giocatore;
+
+Classe ScoreBoard che rappresenta il terreno di gioco. Deve avere un id, una sequenza di caselle (lista concatenata di dimensione specificata dal frontend);
+
+Classe Cell che deve rappresentare un evento con il quale il giocatore può scegliere di interagire o ignorare. Deve avere l'id, descrizione testuale dell'evento,
+descrizione in caso positivo e descrizione in caso negativo.
+
+Classe Dice che rappresenta il dado che viene lanciato di volta in volta e constiene la logica di generazione casuale del numero.
