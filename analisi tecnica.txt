@@ -1,0 +1,10 @@
+Progetto one shot game
+
+Progetto composto da backend e frontend con interfaccia grafica.
+
+Gioco fantasy a turni single player.
+Il gioco parte con un percorso generato casualmente. In ciascuna tappa che compone il percorso, c'è un evento con il quale il giocatore può interagire.
+Il giocatore lancia un dado per decidere di quante caselle avanzare.
+il giocatore vince se arriva all'ultima casella, mentre viene sconfitto se perde tutti gli HP.
+Gli eventi in ciascuna tappa possono far perdere o guadagnare HP al giocatore, oltre che dare buff o debuff.
+
