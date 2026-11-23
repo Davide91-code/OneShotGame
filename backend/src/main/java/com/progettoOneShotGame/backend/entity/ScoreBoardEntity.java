@@ -1,5 +1,6 @@
 package com.progettoOneShotGame.backend.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -23,20 +24,20 @@ public class ScoreBoardEntity {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "score_board_id")
     @OrderColumn(name = "cell_position")
-    private List<Cell> cells = new LinkedList<>();
+    private List<CellEntity> cells = new ArrayList<>();
 
     protected ScoreBoardEntity() {
     }
 
-    public ScoreBoardEntity(List<Cell> cells) {
-        this.cells = new LinkedList<>(cells);
+    public ScoreBoardEntity(List<CellEntity> cells) {
+        this.cells = new ArrayList<>(cells);
     }
 
     public Long getId() {
         return id;
     }
 
-    public List<Cell> getCells() {
+    public List<CellEntity> getCells() {
         return List.copyOf(cells);
     }
 
@@ -44,7 +45,7 @@ public class ScoreBoardEntity {
         return cells.size();
     }
 
-    public Cell getCellAt(int position) {
+    public CellEntity getCellAt(int position) {
         return cells.get(position);
     }
 }
