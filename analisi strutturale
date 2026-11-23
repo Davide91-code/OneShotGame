@@ -1,0 +1,6 @@
+Code rules:
+
+1) Tutti i nomi di classi, metodi e attributi in inglese;
+2) Utilizzo della camelCase notation;
+3) Le classi che seguono un design pattern si chiameranno nome*nomePattern (es. StatoService);
+4) Le classi dovranno essere organizzate in package in base alla loro funzione (i controller nel package "controller", i Service nel package "service" ecc...);
