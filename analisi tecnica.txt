@@ -8,3 +8,13 @@ Il giocatore lancia un dado per decidere di quante caselle avanzare.
 il giocatore vince se arriva all'ultima casella, mentre viene sconfitto se perde tutti gli HP.
 Gli eventi in ciascuna tappa possono far perdere o guadagnare HP al giocatore, oltre che dare buff o debuff.
 
+Obiettivi:
+
+1) Rendere giocabile un turno. 
+    - Quindi creare una nuova partita, 
+    - generare un percorso, 
+    - lancio del dado, 
+    - creazione del personaggio, 
+    - spostamento in nuovo stato.
+
+2) Definire interazioni possibili nelle varie tipologie di celle (definire scelta si/no e relative conseguenze).
