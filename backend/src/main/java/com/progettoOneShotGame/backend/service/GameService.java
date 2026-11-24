@@ -84,12 +84,12 @@ public class GameService {
                 savedGame.getPlayer().getMaxHp());
     }
 
-    //Lancia il dado e regsitra il risultato nello storico.
+    // Lancia il dado e regsitra il risultato nello storico.
     @Transactional
     public DiceRollResponse rollDice(Long gameId) {
 
-        //blocchiamo la partita durante il turno per gestrirare una richiesta
-        //alla volta.
+        // blocchiamo la partita durante il turno per gestrirare una richiesta
+        // alla volta.
         GameEntity game = gameRepository.findByIdForUpdate(gameId)
                 .orElseThrow(() -> new NoSuchElementException("Game not found: " + gameId));
 
@@ -99,6 +99,14 @@ public class GameService {
         long stepsTaken = progressRepository.sumDiceResults(gameId, ActionType.DICE_ROLL);
         if (stepsTaken >= lastPosition) {
             throw new IllegalStateException("The game is already finished");
+        }
+
+        boolean hasPendingInteraction = progressRepository.findFirstByGame_IdOrderByIdDesc(gameId)
+                .filter(progress -> progress.getActionType() == ActionType.DICE_ROLL)
+                .isPresent();
+
+        if (hasPendingInteraction) {
+            throw new IllegalStateException("Choose whether to interact before rolling again");
         }
 
         int diceResult = dice.throwDice();
@@ -119,18 +127,13 @@ public class GameService {
                 newPosition,
                 finished ? null : reachedCell.getEventDescription(),
                 finished);
-        }
+    }
 
-    //Registra la scelta del giocatore  per l'evento della casella raggiunnta.
-    //per ora gestisci il rifiuto, salva la scelta nello storico senza modifica gli hp
+    // Registra la scelta del giocatore per l'evento della casella raggiunnta.
+    // per ora gestisci il rifiuto, salva la scelta nello storico senza modifica gli
+    // hp
     @Transactional
-    //Prima di cercare l'ultimo tiro,
-    //l'evento è ancora in attesa di una scelta solo se l'ultima azione è un tiro
     public InteractionResponse interact(Long gameId, boolean accepted) {
-        if (accepted) {
-            throw new IllegalArgumentException("Accepting events is not implemented yet");
-        }
-
         GameEntity game = gameRepository.findByIdForUpdate(gameId)
                 .orElseThrow(() -> new NoSuchElementException("Game not found: " + gameId));
 
@@ -139,23 +142,32 @@ public class GameService {
             throw new IllegalStateException("The game is already finished");
         }
 
+        // La scelta è ancora in sospeso quando l'ultima azione è il tiro.
         ProgressEntity lastRoll = progressRepository.findFirstByGame_IdOrderByIdDesc(gameId)
                 .filter(progress -> progress.getActionType() == ActionType.DICE_ROLL)
                 .orElseThrow(() -> new IllegalStateException("There is no event awaiting a choice"));
 
+        CellEntity cell = lastRoll.getCell();
+        String responseText = accepted
+                ? cell.getPositiveOutcomeDescription()
+                : cell.getNegativeOutcomeDescription();
+
         ProgressEntity interaction = new ProgressEntity();
         interaction.setGame(game);
-        interaction.setCell(lastRoll.getCell());
+        interaction.setCell(cell);
         interaction.setActionType(ActionType.EVENT_INTERACTION);
-        interaction.setInteractionAccepted(false);
+        interaction.setInteractionAccepted(accepted);
+
+        if (accepted) {
+            interaction.setInteractionOutcome(responseText);
+        }
+
         progressRepository.save(interaction);
 
-        return new InteractionResponse(gameId, false, null);
-
-        //La scelta riguarda la stessa casella raggiunta con l'ultimo tiro e poi
-        //salviamo la scelta come azione seprata per chiudere 
-        //l'evento e continuare il prossimo tiro.
+        return new InteractionResponse(gameId, accepted, responseText);
     }
-
+    // La scelta riguarda la stessa casella raggiunta con l'ultimo tiro e poi
+    // salviamo la scelta come azione seprata per chiudere
+    // l'evento e continuare il prossimo tiro.
 
 }
