@@ -83,6 +83,7 @@ public class GameService {
                 savedGame.getPlayer().getMaxHp());
     }
 
+    @Transactional
     public DiceRollResponse rollDice(Long gameId) {
         GameEntity game = gameRepository.findByIdForUpdate(gameId)
                 .orElseThrow(() -> new NoSuchElementException("Game not found: " + gameId));

@@ -1,5 +1,6 @@
 package com.progettoOneShotGame.backend.controller;
 
+import com.progettoOneShotGame.backend.dto.DiceRollResponse;
 import org.springframework.web.bind.annotation.*;
 
 import com.progettoOneShotGame.backend.dto.CreateNewGameRequest;
@@ -22,5 +23,13 @@ public class GameController {
             @RequestBody CreateNewGameRequest request) {
 
         return gameService.createGame(request);
+    }
+
+    // Lancio del dado
+    @PostMapping("/{gameId}/roll")
+    public DiceRollResponse rollDice(
+            @PathVariable Long gameId) {
+
+        return gameService.rollDice(gameId);
     }
 }
