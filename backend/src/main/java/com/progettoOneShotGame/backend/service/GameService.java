@@ -1,14 +1,22 @@
 package com.progettoOneShotGame.backend.service;
 
+import com.progettoOneShotGame.backend.Dice;
 import com.progettoOneShotGame.backend.dto.CreateNewGameRequest;
 import com.progettoOneShotGame.backend.dto.CreateNewGameResponse;
+import com.progettoOneShotGame.backend.dto.DiceRollResponse;
+import com.progettoOneShotGame.backend.entity.ActionType;
+import com.progettoOneShotGame.backend.entity.CellEntity;
 import com.progettoOneShotGame.backend.entity.GameEntity;
 import com.progettoOneShotGame.backend.entity.PlayerEntity;
+import com.progettoOneShotGame.backend.entity.ProgressEntity;
 import com.progettoOneShotGame.backend.entity.ScoreBoardEntity;
 import com.progettoOneShotGame.backend.repository.GameRepository;
 import com.progettoOneShotGame.backend.repository.PlayerRepository;
+import com.progettoOneShotGame.backend.repository.ProgressRepository;
 import com.progettoOneShotGame.backend.repository.ScoreBoardRepository;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,18 +30,23 @@ public class GameService {
     private final ScoreBoardRepository scoreBoardRepository;
     private final ScoreBoardService scoreBoardService;
 
+    private final ProgressRepository progressRepository;
+    private final Dice dice = new Dice();
+
     public GameService(
             GameRepository gameRepository,
             PlayerRepository playerRepository,
             ScoreBoardRepository scoreBoardRepository,
-            ScoreBoardService scoreBoardService) {
+            ScoreBoardService scoreBoardService,
+            ProgressRepository progressRepository) {
 
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;
         this.scoreBoardRepository = scoreBoardRepository;
         this.scoreBoardService = scoreBoardService;
+        this.progressRepository = progressRepository;
     }
-    
+
     @Transactional
     public CreateNewGameResponse createGame(CreateNewGameRequest request) {
         if (request == null) {
@@ -68,5 +81,37 @@ public class GameService {
                 savedGame.getPlayer().getNome(),
                 savedGame.getScoreBoard().size(),
                 savedGame.getPlayer().getMaxHp());
+    }
+
+    public DiceRollResponse rollDice(Long gameId) {
+        GameEntity game = gameRepository.findByIdForUpdate(gameId)
+                .orElseThrow(() -> new NoSuchElementException("Game not found: " + gameId));
+
+        ScoreBoardEntity scoreBoard = game.getScoreBoard();
+        int lastPosition = scoreBoard.size() - 1;
+
+        long stepsTaken = progressRepository.sumDiceResults(gameId, ActionType.DICE_ROLL);
+        if (stepsTaken >= lastPosition) {
+            throw new IllegalStateException("The game is already finished");
+        }
+
+        int diceResult = dice.throwDice();
+        int newPosition = (int) Math.min(stepsTaken + diceResult, lastPosition);
+        CellEntity reachedCell = scoreBoard.getCellAt(newPosition);
+
+        ProgressEntity progress = new ProgressEntity();
+        progress.setGame(game);
+        progress.setCell(reachedCell);
+        progress.setActionType(ActionType.DICE_ROLL);
+        progress.setDiceResult(diceResult);
+        progressRepository.save(progress);
+
+        boolean finished = newPosition == lastPosition;
+        return new DiceRollResponse(
+                gameId,
+                diceResult,
+                newPosition,
+                finished ? null : reachedCell.getEventDescription(),
+                finished);
     }
 }
