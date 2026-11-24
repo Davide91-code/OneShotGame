@@ -1,9 +1,11 @@
 #Progresso Progetto OneShotGame
 
 
+Gioco Fantasy a turni single player.  
 
- Giorno 1 
-Abbiamo diviso il progetto, così che ognuno avesse la sua task da svolgere.
+
+
+
 
 
 
