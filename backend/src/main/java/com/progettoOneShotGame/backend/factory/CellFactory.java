@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class CellFactory {
 
+    private static final String FINISH_MESSAGE =
+            "Congratulazioni, sei uscito vivo dal dungeon!";
+
     private static final List<EventTemplate> EVENTS = List.of(
             new EventTemplate(
                     "Un viandante ferito chiede aiuto.",
@@ -53,6 +56,12 @@ public class CellFactory {
         cell.setNegativeOutcomeDescription(event.negativeOutcomeDescription());
         cell.setPositiveOutcomeHpChange(event.positiveOutcomeHpChange());
         cell.setNegativeOutcomeHpChange(event.negativeOutcomeHpChange());
+        return cell;
+    }
+
+    public CellEntity createFinishCell() {
+        CellEntity cell = new CellEntity();
+        cell.setEventDescription(FINISH_MESSAGE);
         return cell;
     }
 

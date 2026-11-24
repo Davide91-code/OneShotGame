@@ -15,8 +15,7 @@ il backend è in sviluppo; sono state avviate le classi per rappresentare le cas
 Le istruzioni per avviare e giocare verranno aggiunte quando l’applicazione sarà pronta.
 
 
-in progress...
-
+Abbiamo runnato il progetto su postman e abbiamo testato le chiamate al backend, che funzionano correttamente.
 
 
 

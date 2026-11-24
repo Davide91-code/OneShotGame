@@ -1,5 +1,9 @@
 package com.progettoOneShotGame.backend.dto;
 
-public record InteractionResponse(Long gameId, boolean accepted, String interactionOutcome) {
-    
+public record InteractionResponse(
+        Long gameId,
+        boolean accepted,
+        String interactionOutcome,
+        int currentHp,
+        int maxHp) {
 }

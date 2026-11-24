@@ -22,6 +22,9 @@ public class PlayerEntity {
     @Column(name = "max_hp")
     private int maxHp;
 
+    @Column(name = "current_hp")
+    private Integer currentHp;
+
     public Long getId() {
         return id;
     }
@@ -44,6 +47,14 @@ public class PlayerEntity {
 
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
+    }
+
+    public Integer getCurrentHp() {
+        return currentHp;
+    }
+
+    public void setCurrentHp(Integer currentHp) {
+        this.currentHp = currentHp;
     }
 
     public PlayerEntity() {

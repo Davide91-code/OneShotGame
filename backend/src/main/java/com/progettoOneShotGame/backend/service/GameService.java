@@ -69,6 +69,7 @@ public class GameService {
         PlayerEntity player = new PlayerEntity();
         player.setNome(playerName.trim());
         player.setMaxHp(DEFAULT_MAX_HP);
+        player.setCurrentHp(DEFAULT_MAX_HP);
         PlayerEntity savedPlayer = playerRepository.save(player);
 
         GameEntity game = new GameEntity();
@@ -81,7 +82,8 @@ public class GameService {
                 savedGame.getId(),
                 savedGame.getPlayer().getNome(),
                 savedGame.getScoreBoard().size(),
-                savedGame.getPlayer().getMaxHp());
+                savedGame.getPlayer().getMaxHp(),
+                getCurrentHp(savedGame.getPlayer()));
     }
 
     // Lancia il dado e regsitra il risultato nello storico.
@@ -92,6 +94,10 @@ public class GameService {
         // alla volta.
         GameEntity game = gameRepository.findByIdForUpdate(gameId)
                 .orElseThrow(() -> new NoSuchElementException("Game not found: " + gameId));
+
+        if (getCurrentHp(game.getPlayer()) <= 0) {
+            throw new IllegalStateException("The game is already lost");
+        }
 
         ScoreBoardEntity scoreBoard = game.getScoreBoard();
         int lastPosition = scoreBoard.size() - 1;
@@ -125,17 +131,21 @@ public class GameService {
                 gameId,
                 diceResult,
                 newPosition,
-                finished ? null : reachedCell.getEventDescription(),
+                reachedCell.getEventDescription(),
                 finished);
     }
 
-    // Registra la scelta del giocatore per l'evento della casella raggiunnta.
-    // per ora gestisci il rifiuto, salva la scelta nello storico senza modifica gli
-    // hp
+    // Registra la scelta del giocatore e applica la variazione HP dell'esito.
     @Transactional
     public InteractionResponse interact(Long gameId, boolean accepted) {
         GameEntity game = gameRepository.findByIdForUpdate(gameId)
                 .orElseThrow(() -> new NoSuchElementException("Game not found: " + gameId));
+
+        PlayerEntity player = game.getPlayer();
+        int currentHp = getCurrentHp(player);
+        if (currentHp <= 0) {
+            throw new IllegalStateException("The game is already lost");
+        }
 
         long stepsTaken = progressRepository.sumDiceResults(gameId, ActionType.DICE_ROLL);
         if (stepsTaken >= game.getScoreBoard().size() - 1) {
@@ -151,6 +161,13 @@ public class GameService {
         String responseText = accepted
                 ? cell.getPositiveOutcomeDescription()
                 : cell.getNegativeOutcomeDescription();
+        int hpChange = accepted
+                ? cell.getPositiveOutcomeHpChange()
+                : cell.getNegativeOutcomeHpChange();
+        long updatedHp = (long) currentHp + hpChange;
+        currentHp = (int) Math.max(0L, Math.min((long) player.getMaxHp(), updatedHp));
+        player.setCurrentHp(currentHp);
+        playerRepository.save(player);
 
         ProgressEntity interaction = new ProgressEntity();
         interaction.setGame(game);
@@ -164,10 +181,18 @@ public class GameService {
 
         progressRepository.save(interaction);
 
-        return new InteractionResponse(gameId, accepted, responseText);
+        return new InteractionResponse(
+                gameId,
+                accepted,
+                responseText,
+                currentHp,
+                player.getMaxHp());
     }
-    // La scelta riguarda la stessa casella raggiunta con l'ultimo tiro e poi
-    // salviamo la scelta come azione seprata per chiudere
-    // l'evento e continuare il prossimo tiro.
 
+    private int getCurrentHp(PlayerEntity player) {
+        if (player.getCurrentHp() == null) {
+            player.setCurrentHp(player.getMaxHp());
+        }
+        return player.getCurrentHp();
+    }
 }

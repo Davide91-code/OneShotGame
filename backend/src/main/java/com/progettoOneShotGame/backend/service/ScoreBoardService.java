@@ -26,7 +26,11 @@ public class ScoreBoardService {
 
         List<CellEntity> cells = new ArrayList<>(boardSize);
         for (int position = 0; position < boardSize; position++) {
-            cells.add(cellFactory.createRandomCell());
+            if (position == boardSize - 1) {
+                cells.add(cellFactory.createFinishCell());
+            } else {
+                cells.add(cellFactory.createRandomCell());
+            }
         }
 
         //riceve il percorso completo

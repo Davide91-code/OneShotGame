@@ -1,6 +1,7 @@
 package com.progettoOneShotGame.backend.controller;
 
 import com.progettoOneShotGame.backend.dto.DiceRollResponse;
+import com.progettoOneShotGame.backend.dto.InteractionRequest;
 import com.progettoOneShotGame.backend.dto.InteractionResponse;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,7 @@ public class GameController {
     @PostMapping("/{gameId}/interact")
     public InteractionResponse interact(
             @PathVariable Long gameId,
-            @RequestBody InteractionResponse request) {
+            @RequestBody InteractionRequest request) {
 
         return gameService.interact(gameId, request.accepted());
     }
