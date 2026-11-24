@@ -5,5 +5,7 @@ public record InteractionResponse(
         boolean accepted,
         String interactionOutcome,
         int currentHp,
-        int maxHp) {
+        int maxHp,
+        boolean finished,
+        String message) {
 }

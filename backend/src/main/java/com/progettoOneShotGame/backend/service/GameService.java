@@ -25,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class GameService {
 
     private static final int DEFAULT_MAX_HP = 10;
+    private static final String DEFEAT_MESSAGE =
+            "Purtroppo hai perso: hai esaurito tutti i tuoi HP.";
 
     private final GameRepository gameRepository;
     private final PlayerRepository playerRepository;
@@ -181,12 +183,15 @@ public class GameService {
 
         progressRepository.save(interaction);
 
+        boolean finished = currentHp == 0;
         return new InteractionResponse(
                 gameId,
                 accepted,
                 responseText,
                 currentHp,
-                player.getMaxHp());
+                player.getMaxHp(),
+                finished,
+                finished ? DEFEAT_MESSAGE : null);
     }
 
     private int getCurrentHp(PlayerEntity player) {
