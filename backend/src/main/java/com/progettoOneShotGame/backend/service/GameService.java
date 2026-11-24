@@ -156,4 +156,6 @@ public class GameService {
         //salviamo la scelta come azione seprata per chiudere 
         //l'evento e continuare il prossimo tiro.
     }
+
+
 }
