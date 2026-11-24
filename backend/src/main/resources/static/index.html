@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OneShot Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main id="frame">
+    <canvas id="game-canvas"></canvas>
+
+    <!-- HUD in alto a destra -->
+    <div id="hud" hidden>
+      <span id="hud-name"></span>
+      <span id="hud-pos"></span>
+    </div>
+
+    <!-- Schermata iniziale -->
+    <section id="screen-start" class="screen">
+      <form id="start-form" class="panel">
+        <h1>OneShot Game</h1>
+        <p class="subtitle">Esci vivo dal dungeon, un tiro di dado alla volta.</p>
+
+        <label class="field">
+          <span>Nome dell'eroe</span>
+          <input id="input-name" type="text" maxlength="20" placeholder="Es. Aldric" autocomplete="off" required>
+        </label>
+
+        <fieldset class="difficulty">
+          <legend>Difficoltà</legend>
+          <label><input type="radio" name="difficulty" value="EASY" checked><span>Facile<small>20 caselle</small></span></label>
+          <label><input type="radio" name="difficulty" value="MEDIUM"><span>Normale<small>30 caselle</small></span></label>
+          <label><input type="radio" name="difficulty" value="HARD"><span>Difficile<small>40 caselle</small></span></label>
+        </fieldset>
+
+        <button id="btn-start" class="btn btn-primary" type="submit">Inizia l'avventura</button>
+      </form>
+    </section>
+
+    <!-- Schermata finale -->
+    <section id="screen-end" class="screen" hidden>
+      <div class="panel">
+        <h1 id="end-title"></h1>
+        <p id="end-text"></p>
+        <p id="end-stats" class="hint"></p>
+        <button id="btn-again" class="btn btn-primary" type="button">Nuova partita</button>
+      </div>
+    </section>
+
+    <!-- Finestra di dialogo / azioni -->
+    <section id="dialog" hidden>
+      <div class="dialog-body">
+        <div id="dialog-title" class="dialog-title"></div>
+        <div id="dialog-text" class="dialog-text"></div>
+      </div>
+      <div class="dialog-actions">
+        <button id="btn-roll" class="btn btn-primary" type="button">🎲 Lancia il dado <kbd>Spazio</kbd></button>
+        <button id="btn-yes" class="btn btn-good" type="button" hidden>Interagisci <kbd>1</kbd></button>
+        <button id="btn-no" class="btn btn-bad" type="button" hidden>Ignora <kbd>2</kbd></button>
+        <button id="btn-log" class="btn btn-small" type="button" title="Diario (L)">📜</button>
+      </div>
+    </section>
+
+    <!-- Diario -->
+    <aside id="log">
+      <h2>Diario</h2>
+      <ul id="log-list"></ul>
+    </aside>
+
+    <div id="toast" role="alert"></div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/sprites.js"></script>
+  <script src="js/world.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
