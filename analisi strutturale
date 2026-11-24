@@ -1,6 +1,48 @@
+Prima giornata:
+
 Code rules:
 
 1) Tutti i nomi di classi, metodi e attributi in inglese;
 2) Utilizzo della camelCase notation;
 3) Le classi che seguono un design pattern si chiameranno nome*nomePattern (es. StatoService);
 4) Le classi dovranno essere organizzate in package in base alla loro funzione (i controller nel package "controller", i Service nel package "service" ecc...);
+
+
+Seconda giornata:
+
+BrainStorming sul flusso di lavoro giornaliero e definite le linee guida fino ad oggi:
+
+Classe	Responsabilità
+
+GameEntity	       Gestisce la partita
+ScoreBoardEntity       Contiene il percorso
+CellEntity	       Contiene gli eventi delle caselle
+ProgressEntity	       Registra le azioni del giocatore
+Dice	               Genera il risultato del dado
+
+
+
+Sequenza delle azioni all interno del singolo turno.
+1. Inizio partita
+
+   Viene creato GameEntity, associato al giocatore e alla ScoreBoardEntity.
+2. Lancio del dado
+
+   Viene creato un ProgressEntity con:
+   - actionType = DICE_ROLL
+   - diceResult = 4
+3. Il giocatore raggiunge una casella con evento
+
+   Il gioco recupera la CellEntity corrispondente alla posizione raggiunta.
+4. Il giocatore decide se interagire
+
+   Viene creato un altro ProgressEntity con:
+   - actionType = EVENT_INTERACTION
+   - interactionAccepted = true oppure false
+   - interactionOutcome valorizzato se accetta.
+5. Nuovo turno
+
+   Si ripete il ciclo con un nuovo lancio del dado.
+
+
+* I controller non espongono entita ma dto
