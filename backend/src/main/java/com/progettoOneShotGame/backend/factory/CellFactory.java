@@ -5,6 +5,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.progettoOneShotGame.backend.entity.CellEntity;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CellFactory {
 
     private static final List<EventTemplate> EVENTS = List.of(
