@@ -1,11 +1,21 @@
 #Progresso Progetto OneShotGame
 
 
-Gioco Fantasy a turni single player.  
+[ Inserire qui il nome del gioco] è un gioco fantasy a turni single player.
 
 
+Il giocatore assume il ruolo di un eroe che deve avanzare su un percorso di caselle
+generate casualmente, affrontando eventi, nemici, segreti... 
+
+Si vince raggiungendo l'ultima casella  e si perde se si esauriscono i punti vita.
 
 
+Stato del progetto 
+il backend è in sviluppo; sono state avviate le classi per rappresentare le caselle e generare eventi casuali.
+Le istruzioni per avviare e giocare verranno aggiunte quando l’applicazione sarà pronta.
+
+
+in progress...
 
 
 
