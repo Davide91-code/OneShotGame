@@ -53,7 +53,6 @@
       g.drawImage(img, Math.floor((portrait.width - img.width) / 2), Math.floor((portrait.height - img.height) / 2));
       portrait.hidden = false;
     } else portrait.hidden = true;
-    $('dialog-hint').textContent = opts.hint || '';
     const body = $('dialog-text');
     body.className = 'dialog-text' + (opts.tone ? ' tone-' + opts.tone : '');
     clearInterval(typeTimer);
@@ -184,7 +183,6 @@
     log('Casella ' + res.currentPosition + ': ' + res.eventDescription, 'event');
     say(ev.title, res.eventDescription, {
       sprite: ev.sprite, monster: ev.monster,
-      hint: 'Accettando puoi ottenere un esito positivo. Proseguendo si applica l\'esito negativo.',
     });
     setPhase('choice');
   }

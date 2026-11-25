@@ -229,7 +229,6 @@ kbd {
 .dialog-text { margin: 0; min-height: 2.5em; }
 .dialog-text.tone-good { color: #9cf0a0; }
 .dialog-text.tone-bad { color: #ff9a8a; }
-.dialog-hint { margin: var(--px) 0 0; color: var(--muted); font-size: 0.75em; min-height: 1em; }
 .dialog-actions { display: flex; gap: calc(var(--px) * 4); justify-content: flex-end; margin-top: calc(var(--px) * 4); }
 #dialog.waiting .dialog-actions::before { content: '⋯'; color: var(--muted); margin-right: auto; animation: blink 0.8s steps(2) infinite; }
 @keyframes blink { 50% { opacity: 0; } }

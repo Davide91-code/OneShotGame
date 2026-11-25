@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class GameService {
 
     private static final int DEFAULT_MAX_HP = 10;
-    private static final int ACCEPTED_OUTCOME_SUCCESS_CHANCE = 75;
+    private static final int ACCEPTED_OUTCOME_SUCCESS_CHANCE = 70;
     private static final String DEFEAT_MESSAGE =
             "Purtroppo hai perso: hai esaurito tutti i tuoi HP.";
 
