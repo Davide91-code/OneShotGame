@@ -17,6 +17,7 @@ import com.progettoOneShotGame.backend.repository.ProgressRepository;
 import com.progettoOneShotGame.backend.repository.ScoreBoardRepository;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class GameService {
 
     private static final int DEFAULT_MAX_HP = 10;
+    private static final int ACCEPTED_OUTCOME_SUCCESS_CHANCE = 75;
     private static final String DEFEAT_MESSAGE =
             "Purtroppo hai perso: hai esaurito tutti i tuoi HP.";
 
@@ -164,10 +166,12 @@ public class GameService {
                 .orElseThrow(() -> new IllegalStateException("There is no pending event. Roll the dice first to reach a cell."));
 
         CellEntity cell = lastRoll.getCell();
-        String responseText = accepted
+        boolean successfulOutcome = accepted
+                && ThreadLocalRandom.current().nextInt(100) < ACCEPTED_OUTCOME_SUCCESS_CHANCE;
+        String responseText = successfulOutcome
                 ? cell.getPositiveOutcomeDescription()
                 : cell.getNegativeOutcomeDescription();
-        int hpChange = accepted
+        int hpChange = successfulOutcome
                 ? cell.getPositiveOutcomeHpChange()
                 : cell.getNegativeOutcomeHpChange();
         long updatedHp = (long) currentHp + hpChange;
@@ -181,9 +185,7 @@ public class GameService {
         interaction.setActionType(ActionType.EVENT_INTERACTION);
         interaction.setInteractionAccepted(accepted);
 
-        if (accepted) {
-            interaction.setInteractionOutcome(responseText);
-        }
+        interaction.setInteractionOutcome(responseText);
 
         progressRepository.save(interaction);
 
