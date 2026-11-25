@@ -23,13 +23,13 @@ public class CellFactory {
             new EventTemplate(
                     "Trovi un forziere malandato.",
                     "Apri il forziere e trovi una pozione di cura.",
-                    "Mentre lo apri scopri che è un Mimic e perdi qualche HP.",
+                    "Mentre lo apri scopri che è un Mimic. Si prende un morso e tu perdi qualche HP.",
                     8,
                     -4),
             new EventTemplate(
-                    "Una creatura ti offre uno scambio misterioso.",
-                    "Accetti lo scambio e recuperi qualche HP.",
-                    "Rifiuti lo scambio e la creatura ti ferisce.",
+                    "Uno spettro ti chiede di risolvere un merge conflict tra due pergamene. Lo aiuti?",
+                    "Salvi entrambe le versioni. Per ringraziarti, lo spettro fa il commit della tua guarigione.",
+                    "Lo lasci fare da solo. Lo spettro fa push su main e, per qualche motivo, perdi 3 HP tu.",
                     3,
                     -4),
             new EventTemplate(
@@ -46,8 +46,8 @@ public class CellFactory {
                          -2),
                  new EventTemplate(
                          "Un alchimista stanco ti mostra una fiala.",
-                         "Bevi la pozione e recuperi diversi HP.",
-                         "La fiala era instabile e subisci dei danni.",
+                         "Era una tisana alla cannabis. Ti siedi cinque minuti a fissare una torcia e recuperi 5 HP.",
+                         "Era vodka liscia. L'alchimista si riprende la fiala: «Ah, ecco dov'era finita la mia pausa pranzo». Perdi 6 HP.",
                          5,
                          -6),
                  new EventTemplate(
@@ -69,9 +69,9 @@ public class CellFactory {
                          1,
                          -0),
                  new EventTemplate(
-                         "Uno scheletro custodisce una porta.",
-                         "Rispondi correttamente alla sua domanda e prosegui.",
-                         "La risposta è sbagliata e lo scheletro ti colpisce.",
+                         "Uno scheletro custodisce una porta. «Domanda a sorpresa: cos'è la dependency injection?» Rispondi?",
+                         "Dici «dipende». Lo scheletro apprezza la precisione tecnica, ti dà 3 HP e apre la porta.",
+                         "Provi a spiegarglielo con un esempio. Ti interrompe al terzo costruttore: «Va bene, ci rivediamo a settembre». Perdi 6 HP.",
                          3,
                          -6),
                  new EventTemplate(
@@ -124,14 +124,14 @@ public class CellFactory {
                          -6),
                  new EventTemplate(
                          "Un gruppo di pipistrelli esce dal soffitto.",
-                         "Ti copri con il mantello e li eviti.",
-                         "Uno ti graffia mentre tenti di scappare.",
+                         "Aspetta ti sei sbagliato! E' un gruppo di HR selvaggi: Complimenti il tuo colloquio con Accenture è andato bene: Tiè l'indeterminato!",
+                         "Aspetta ti sei sbagliato! E' un gruppo di HR selvaggi: Purtoppo hai la telecamera spenta. Non accettano le tue scuse e vieni balzato fuori e perdi 2 HP.",
                          2,
                          -3),
                  new EventTemplate(
-                         "Un chierico ferito si trascina a terra.",
-                         "Lo curi e usa la magia per guarire anche te.",
-                         "15 e 18 quanto fa?! Cogl*one!",
+                         "Un chierichetto ferito si trascina a terra.",
+                         "Lo aiuti a sfuggire dalle grinfie di un prete.",
+                         "Non hai tempo per aiutarlo, ma per fortuna c'è un prete proprio lì accanto che lo trascina nelle sue stanze.",
                          9,
                          -4),
                  new EventTemplate(
@@ -148,14 +148,14 @@ public class CellFactory {
                          -6),
                  new EventTemplate(
                          "Trovi una lampada coperta dalla polvere.",
-                         "La strofina e un genio concede una guarigione.",
-                         "Il genio si arrabbia e ti lancia una maledizione.",
+                         "La strofini e un genio ti concede 3 colloqui di lavoro.",
+                         "Il genio è in realtà Carlo Conti: Sei costretto a spendere due mesi con lui a tale quale Show, facendo imitazione di Malgioglio",
                          8,
                          -5),
                  new EventTemplate(
                          "Una sala contiene una serie di leve.",
-                         "Scegli quella giusta e si apre una stanza sicura.",
-                         "Tiri quella sbagliata e cadono dardi velenosi.",
+                         "Scegli quella giusta: ti è concesso di giocare a GTA VI tutta la notte.",
+                         "Una di queste attiva la gestione dell'autenticazione. Ma purtroppo tu non la conosci ancora. Perchè hai passato tutta la notte a giocare a GTA VI.",
                          5,
                          -7),
                  new EventTemplate(
