@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class CellFactory {
 
     private static final String FINISH_MESSAGE =
-            "Congratulazioni, sei uscito vivo dal dungeon!";
+            "Congratulazioni, sei uscito vivo dal dungeon ed hai conseguito l'attestato del corso!";
 
     private static final List<EventTemplate> EVENTS = List.of(
             new EventTemplate(
