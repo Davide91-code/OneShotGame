@@ -10,12 +10,14 @@ generate casualmente, affrontando eventi, nemici, segreti...
 Si vince raggiungendo l'ultima casella  e si perde se si esauriscono i punti vita.
 
 
-Stato del progetto 
-il backend è in sviluppo; sono state avviate le classi per rappresentare le caselle e generare eventi casuali.
-Le istruzioni per avviare e giocare verranno aggiunte quando l’applicazione sarà pronta.
+API provate con Postman
+Abbiamo verificato le chiamate per creare una partita, lanciare il dado e scegliere come affrontare un evento.
 
-
-Abbiamo runnato il progetto su postman e abbiamo testato le chiamate al backend, che funzionano correttamente.
+Contenuto del progetto
+- Il backend, sviluppato in Java con Spring Boot, gestisce la partita, il lancio del dado, gli eventi e i punti vita.
+- Il database MySQL salva i dati delle partite, dei giocatori e dei loro progressi.
+- Il frontend, realizzato con HTML, CSS e JavaScript, mostra il gioco nel browser e permette di giocare.
+- Il frontend comunica con il backend tramite le API. È disponibile anche una modalità demo offline.
 
 
 
