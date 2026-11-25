@@ -55,15 +55,15 @@ public class GameService {
     @Transactional
     public CreateNewGameResponse createGame(CreateNewGameRequest request) {
         if (request == null) {
-            throw new IllegalArgumentException("Game request is missing. Provide the player name and difficulty.");
+            throw new IllegalArgumentException("Manca il nome del gioco. Inserisci il nome del giocatore e la difficoltà.");
         }
 
         String playerName = request.nomeUtente();
         if (playerName == null || playerName.isBlank()) {
-            throw new IllegalArgumentException("Player name is missing. Enter a valid name to start the game.");
+            throw new IllegalArgumentException("Manca il nome de giocatore. Inserisci un nome valido per cominciare a giocare.");
         }
         if (request.difficolta() == null) {
-            throw new IllegalArgumentException("Difficulty is missing. Select a difficulty to start the game.");
+            throw new IllegalArgumentException("Manca la difficoltà. Inserisci la difficoltà per cominciare a giocare.");
         }
 
         int boardSize = request.difficolta().getValore();
@@ -94,7 +94,7 @@ public class GameService {
     @Transactional
     public DiceRollResponse rollDice(Long gameId) {
 
-        // blocchiamo la partita durante il turno per gestrirare una richiesta
+        // blocchiamo la partita durante il turno per gestire una richiesta
         // alla volta.
         GameEntity game = gameRepository.findByIdForUpdate(gameId)
                 .orElseThrow(() -> new NoSuchElementException(
@@ -102,7 +102,7 @@ public class GameService {
                 ));
 
         if (getCurrentHp(game.getPlayer()) <= 0) {
-            throw new IllegalStateException("Your HP are exhausted. You have lost the game and cannot roll again.");
+            throw new IllegalStateException("Hai terminato gli HP. Hai perso il gioco e non può continuare a giocare.");
         }
 
         ScoreBoardEntity scoreBoard = game.getScoreBoard();
@@ -110,7 +110,7 @@ public class GameService {
 
         long stepsTaken = progressRepository.sumDiceResults(gameId, ActionType.DICE_ROLL);
         if (stepsTaken >= lastPosition) {
-            throw new IllegalStateException("You have reached the final cell. The game is finished.");
+            throw new IllegalStateException("Sei giunto all'ultima casella. Il gioco è concluso.");
         }
 
         boolean hasPendingInteraction = progressRepository.findFirstByGame_IdOrderByIdDesc(gameId)
@@ -118,7 +118,7 @@ public class GameService {
                 .isPresent();
 
         if (hasPendingInteraction) {
-            throw new IllegalStateException("You have a pending event. Accept or refuse the event before rolling the dice again.");
+            throw new IllegalStateException("Hai un evento in attesa. Accetta o rifiuta prima di lanciare nuovamente il dado!");
         }
 
         int diceResult = dice.throwDice();
@@ -152,18 +152,18 @@ public class GameService {
         PlayerEntity player = game.getPlayer();
         int currentHp = getCurrentHp(player);
         if (currentHp <= 0) {
-            throw new IllegalStateException("Your HP are exhausted. You have lost the game and cannot interact.");
+            throw new IllegalStateException("I tuoi HP sono terminati. Hai perso la partita e non puoi proseguire il gioco.");
         }
 
         long stepsTaken = progressRepository.sumDiceResults(gameId, ActionType.DICE_ROLL);
         if (stepsTaken >= game.getScoreBoard().size() - 1) {
-            throw new IllegalStateException("You have reached the final cell. The game is finished.");
+            throw new IllegalStateException("Sei giunto all'ultima casella. Il gioco è concluso.");
         }
 
         // La scelta è ancora in sospeso quando l'ultima azione è il tiro.
         ProgressEntity lastRoll = progressRepository.findFirstByGame_IdOrderByIdDesc(gameId)
                 .filter(progress -> progress.getActionType() == ActionType.DICE_ROLL)
-                .orElseThrow(() -> new IllegalStateException("There is no pending event. Roll the dice first to reach a cell."));
+                .orElseThrow(() -> new IllegalStateException("Non ci sono eventi in attesa. Lancia il dado per spostarti su una nuova casella."));
 
         CellEntity cell = lastRoll.getCell();
         boolean successfulOutcome = accepted

@@ -29,7 +29,7 @@ public class CellFactory {
             new EventTemplate(
                     "Uno spettro ti chiede di risolvere un merge conflict tra due pergamene. Lo aiuti?",
                     "Salvi entrambe le versioni. Per ringraziarti, lo spettro fa il commit della tua guarigione.",
-                    "Lo lasci fare da solo. Lo spettro fa push su main e, per qualche motivo, perdi 3 HP tu.",
+                    "Lo lasci fare da solo. Lo spettro fa push su main e, per qualche motivo, perdi degli HP.",
                     3,
                     -4),
             new EventTemplate(
@@ -47,7 +47,7 @@ public class CellFactory {
                  new EventTemplate(
                          "Un alchimista stanco ti mostra una fiala.",
                          "Era una tisana alla cannabis. Ti siedi cinque minuti a fissare una torcia e recuperi 5 HP.",
-                         "Era vodka liscia. L'alchimista si riprende la fiala: «Ah, ecco dov'era finita la mia pausa pranzo». Perdi 6 HP.",
+                         "Era vodka liscia. L'alchimista si riprende la fiala: «Ah, ecco dov'era finita la mia pausa pranzo». Perdi degli HP.",
                          5,
                          -6),
                  new EventTemplate(
@@ -71,7 +71,7 @@ public class CellFactory {
                  new EventTemplate(
                          "Uno scheletro custodisce una porta. «Domanda a sorpresa: cos'è la dependency injection?» Rispondi?",
                          "Dici «dipende». Lo scheletro apprezza la precisione tecnica, ti dà 3 HP e apre la porta.",
-                         "Provi a spiegarglielo con un esempio. Ti interrompe al terzo costruttore: «Va bene, ci rivediamo a settembre». Perdi 6 HP.",
+                         "Provi a spiegarglielo con un esempio. Ti interrompe al terzo costruttore: «Va bene, ci rivediamo a settembre». Perdi degli HP.",
                          3,
                          -6),
                  new EventTemplate(
@@ -125,7 +125,7 @@ public class CellFactory {
                  new EventTemplate(
                          "Un gruppo di pipistrelli esce dal soffitto.",
                          "Aspetta ti sei sbagliato! E' un gruppo di HR selvaggi: Complimenti il tuo colloquio con Accenture è andato bene: Tiè l'indeterminato!",
-                         "Aspetta ti sei sbagliato! E' un gruppo di HR selvaggi: Purtoppo hai la telecamera spenta. Non accettano le tue scuse e vieni balzato fuori e perdi 2 HP.",
+                         "Aspetta ti sei sbagliato! E' un gruppo di HR selvaggi: Purtoppo hai la telecamera spenta. Non accettano le tue scuse e vieni balzato fuori e perdi degli HP.",
                          2,
                          -3),
                  new EventTemplate(
