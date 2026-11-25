@@ -19,7 +19,7 @@ public class GameController {
         this.gameService = gameService;
     }
 
-    // Creazione nuova partita
+
     @PostMapping
     public CreateNewGameResponse createGame(
             @RequestBody CreateNewGameRequest request) {
@@ -27,7 +27,7 @@ public class GameController {
         return gameService.createGame(request);
     }
 
-    // Lancio del dado
+
     @PostMapping("/{gameId}/roll")
     public DiceRollResponse rollDice(
             @PathVariable Long gameId) {
