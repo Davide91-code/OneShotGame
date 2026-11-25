@@ -197,8 +197,10 @@ public class CellFactory {
                 
 
     public CellEntity createRandomCell() {
-        EventTemplate event = EVENTS.get(
-                ThreadLocalRandom.current().nextInt(EVENTS.size()));
+        int index = ThreadLocalRandom.current().nextInt(EVENTS.size());
+        EventTemplate event = EVENTS.get(index);
+
+        EVENTS.remove(index);
 
         CellEntity cell = new CellEntity();
         cell.setEventDescription(event.eventDescription());
