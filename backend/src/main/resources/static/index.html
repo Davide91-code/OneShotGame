@@ -3,78 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OneShot Game</title>
+  <title>RandoMyDungeon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=Silkscreen&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <main id="frame">
-    <canvas id="game-canvas"></canvas>
+    <canvas id="game-canvas" aria-label="Mondo di gioco"></canvas>
+    <div class="crt" aria-hidden="true"></div>
+    <div id="flash" aria-hidden="true"></div>
 
-    <!-- HUD in alto a destra -->
-    <div id="hud" hidden>
-      <span id="hud-name"></span>
-      <span id="hud-pos"></span>
+    <!-- barra in alto: comandi rapidi -->
+    <div id="topbar" hidden>
+      <button id="btn-log" class="icon-btn" type="button" title="Diario (L)">📜</button>
+      <button id="btn-sound" class="icon-btn" type="button" title="Audio (M)">🔊</button>
     </div>
 
-    <!-- Schermata iniziale -->
-    <section id="screen-start" class="screen">
-      <form id="start-form" class="panel">
-        <h1>OneShot Game</h1>
-        <p class="subtitle">Esci vivo dal dungeon, un tiro di dado alla volta.</p>
+    <!-- nome della zona -->
+    <div id="zone-banner" aria-live="polite"><span></span></div>
 
+    <!-- schermata iniziale -->
+    <section id="screen-start" class="screen">
+      <div class="logo" aria-label="RandoMyDungeon">
+        <span class="logo-top">RandoMy</span>
+        <span class="logo-bottom">Dungeon</span>
+        <span class="logo-tag">un tiro di dado alla volta</span>
+      </div>
+      <form id="start-form" class="panel">
         <label class="field">
           <span>Nome dell'eroe</span>
           <input id="input-name" type="text" maxlength="20" placeholder="Es. Aldric" autocomplete="off" required>
         </label>
-
         <fieldset class="difficulty">
           <legend>Difficoltà</legend>
-          <label><input type="radio" name="difficulty" value="EASY" checked><span>Facile<small>20 caselle</small></span></label>
-          <label><input type="radio" name="difficulty" value="MEDIUM"><span>Normale<small>30 caselle</small></span></label>
-          <label><input type="radio" name="difficulty" value="HARD"><span>Difficile<small>40 caselle</small></span></label>
+          <label><input type="radio" name="difficulty" value="EASY" checked><span><b>Facile</b><small>20 caselle</small></span></label>
+          <label><input type="radio" name="difficulty" value="MEDIUM"><span><b>Normale</b><small>30 caselle</small></span></label>
+          <label><input type="radio" name="difficulty" value="HARD"><span><b>Difficile</b><small>40 caselle</small></span></label>
         </fieldset>
-
-        <button id="btn-start" class="btn btn-primary" type="submit">Inizia l'avventura</button>
+        <button id="btn-start" class="btn btn-primary" type="submit">Entra nel dungeon <kbd>Invio</kbd></button>
       </form>
     </section>
 
-    <!-- Schermata finale -->
+    <!-- schermata finale -->
     <section id="screen-end" class="screen" hidden>
-      <div class="panel">
+      <div class="panel end-panel">
         <h1 id="end-title"></h1>
         <p id="end-text"></p>
-        <p id="end-stats" class="hint"></p>
-        <button id="btn-again" class="btn btn-primary" type="button">Nuova partita</button>
+        <dl id="end-stats"></dl>
+        <button id="btn-again" class="btn btn-primary" type="button">Nuova partita <kbd>Invio</kbd></button>
       </div>
     </section>
 
-    <!-- Finestra di dialogo / azioni -->
+    <!-- finestra di dialogo -->
     <section id="dialog" hidden>
-      <div class="dialog-body">
-        <div id="dialog-title" class="dialog-title"></div>
-        <div id="dialog-text" class="dialog-text"></div>
+      <div class="dialog-name"><span id="dialog-title"></span></div>
+      <div class="dialog-main">
+        <canvas id="dialog-portrait" width="16" height="16" hidden></canvas>
+        <div class="dialog-body">
+          <p id="dialog-text" class="dialog-text"></p>
+          <p id="dialog-hint" class="dialog-hint"></p>
+        </div>
       </div>
       <div class="dialog-actions">
         <button id="btn-roll" class="btn btn-primary" type="button">🎲 Lancia il dado <kbd>Spazio</kbd></button>
-        <button id="btn-yes" class="btn btn-good" type="button" hidden>Accetti <kbd>1</kbd></button>
+        <button id="btn-yes" class="btn btn-good" type="button" hidden>Accetta <kbd>1</kbd></button>
         <button id="btn-no" class="btn btn-bad" type="button" hidden>Prosegui <kbd>2</kbd></button>
-        <button id="btn-log" class="btn btn-small" type="button" title="Diario (L)">📜</button>
       </div>
     </section>
 
-    <!-- Diario -->
-    <aside id="log">
-      <h2>Diario</h2>
+    <!-- diario -->
+    <aside id="log" aria-label="Diario">
+      <div class="log-head">diario · locale</div>
       <ul id="log-list"></ul>
     </aside>
 
     <div id="toast" role="alert"></div>
   </main>
 
-  <script src="js/api.js"></script>
   <script src="js/sprites.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/audio.js"></script>
   <script src="js/world.js"></script>
   <script src="js/game.js"></script>
 </body>

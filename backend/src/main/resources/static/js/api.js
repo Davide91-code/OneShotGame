@@ -55,6 +55,6 @@
     },
   };
 
-  window.OSG = window.OSG || {};
-  window.OSG.HttpApi = HttpApi;
+  window.RMD = window.RMD || {};
+  window.RMD.HttpApi = HttpApi;
 })();
