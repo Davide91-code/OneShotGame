@@ -62,7 +62,7 @@ Durante lo sviluppo è stato applicato il **Factory Pattern**, utilizzato per ce
 Progetto realizzato in gruppo nell'ambito del corso di formazione Academy Java / Spring / Spring AI.
 
 - Davide Leonino
-- Daniele Tommasini
+- Daniele Tommasino
 - Laura Casota
 - Carmine Vanacore
 
