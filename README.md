@@ -1,8 +1,8 @@
-# OneShotGame 🎲
+# OneShotGame / RandoMyDoungeon 🎲
 
 ## Descrizione del progetto
 
-OneShotGame è un gioco fantasy a turni, sviluppato nell'ambito del progetto di gruppo del corso di formazione Java Full Stack.
+RandoMyDoungeon è un gioco fantasy a turni, sviluppato nell'ambito del progetto di gruppo del corso di formazione Java / Spring.
 
 Il giocatore affronta un percorso composto da diverse caselle, avanzando attraverso il lancio di un dado e interagendo con gli eventi incontrati durante il tragitto.
 
